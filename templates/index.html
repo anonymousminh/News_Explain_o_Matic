@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📰 News Explain-o-Matic</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>News Explain-o-Matic</h1>
+        
+        <form method="post">
+            <input type="text" name="query" placeholder="Enter news topic" required>
+            <button type="submit">Explain</button>
+        </form>
+
+        {% if summary %}
+        <div class="results">
+            <h2>Summary</h2>
+            <p>{{ summary }}</p>
+            
+            <h3>Sources</h3>
+            <ol>
+                {% for citation in citations %}
+                <li>
+                    <a href="{{ citation.url }}" target="_blank">
+                        {{ citation.title }} ({{ citation.source }})
+                    </a>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
