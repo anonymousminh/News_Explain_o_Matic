@@ -89,6 +89,8 @@ async def explain_news_by_query(request: NewsQueryRequest):
 def _parse_sonar_response(sonar_data):
     """Parse the Sonar API response into our NewsExplanationResponse model"""
     try:
+        import re  # Import regex module for cleaning markdown characters
+        
         # Convert the response to a dictionary
         sonar_dict = sonar_data.dict() if hasattr(sonar_data, "dict") else sonar_data
 
@@ -105,6 +107,13 @@ def _parse_sonar_response(sonar_data):
                         content = explanation_parts[1].strip()
                     else:
                         content = content.replace("<think>", "").strip()
+        
+        # Remove markdown headings at the beginning of lines
+        content = re.sub(r"^#{1,6}\s*", "", content, flags=re.MULTILINE)
+        # Remove markdown list separators at the beginning of lines
+        content = re.sub(r"^-+\s*", "", content, flags=re.MULTILINE)
+        # Convert markdown bold formatting to HTML bold tags
+        content = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", content)
         
         # Extract citations
         citations_list = []
