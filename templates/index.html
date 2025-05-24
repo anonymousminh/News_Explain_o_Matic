@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>📰 News Explain-o-Matic</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Explainer</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>News Explain-o-Matic</h1>
-        
-        <form method="post">
-            <input type="text" name="query" placeholder="Enter news topic" required>
-            <button type="submit">Explain</button>
-        </form>
-
-        {% if summary %}
-        <div class="results">
-            <h2>Summary</h2>
-            <p>{{ summary }}</p>
-            
-            <h3>Sources</h3>
-            <ol>
-                {% for citation in citations %}
-                <li>
-                    <a href="{{ citation.url }}" target="_blank">
-                        {{ citation.title }} ({{ citation.source }})
-                    </a>
-                </li>
-                {% endfor %}
-            </ol>
-        </div>
-        {% endif %}
-    </div>
+    <header>
+        <h1>News Explainer</h1>
+        <p class="tagline">Get summarized news with credible sources</p>
+    </header>
+    <main>
+        <section id="search-section">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Enter your news query...">
+                <button id="search-button">Explain <i class="fas fa-search"></i></button>
+            </div>
+            <p class="search-tip">Try searching for current events, topics, or news stories</p>
+        </section>
+        <section id="results-section">
+            <div class="welcome-message">
+                <h2>Welcome to News Explainer</h2>
+                <p>Enter a news topic or query above to get a detailed explanation with credible sources.</p>
+                <div class="example-queries">
+                    <p>Example queries:</p>
+                    <ul>
+                        <li>"Latest developments in renewable energy"</li>
+                        <li>"Current global economic trends"</li>
+                        <li>"Recent space exploration achievements"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Powered by Perplexity Sonar API | <span class="copyright">© 2025 News Explainer</span></p>
+    </footer>
+    <script src="/static/script.js"></script>
 </body>
 </html>
